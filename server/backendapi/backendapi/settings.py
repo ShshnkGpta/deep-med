@@ -13,8 +13,7 @@ SECRET_KEY = 'django-insecure-nrbb1hewu^tasc4=zow0hv_sjkwaf#k02njv*ab96li^-664#r
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -37,7 +36,7 @@ INSTALLED_APPS = [
     'rest_auth',
     'rest_auth.registration',
 
-    'accounts.apps.AccountsConfig',  
+    'accounts',  
 ]
 
 SITE_ID = 1
@@ -46,12 +45,16 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.BrokenLinkEmailsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+#CORS_ORIGIN_WHITELIST = ['http://localhost:3000']
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -143,8 +146,7 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOW_ALL_ORIGINS = True
-
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_AUTHENTICATION_METHOD  = 'username'
 ACCOUNT_EMAIL_REQUIRED = False
+CORS_ORIGIN_ALLOW_ALL = True

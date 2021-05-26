@@ -8,15 +8,10 @@ import * as actions from '../store/actions/auth';
 const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 const NormalLoginForm = (props) => {
-    const onFinish = (values) => { 
+    const onFinish = (values) => {
+        props.onAuth(values.username, values.password);
         props.history.push('/');
 
-        let errorMessage = null;
-        if (props.error) {
-            errorMessage = (
-                <p>{props.error.message}</p>
-            );
-        }
         console.log('Received values of form: ', values);
     };
 
@@ -98,7 +93,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAuth: (values) => dispatch(actions.authLogin(values))
+        onAuth: (username, password) => dispatch(actions.authLogin(username, password))
     }
 }
 

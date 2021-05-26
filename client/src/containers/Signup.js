@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Form, Input, Select, Checkbox, Button } from 'antd';
 import { UserOutlined, MailOutlined, LockOutlined, SmileOutlined,
      HomeOutlined, NumberOutlined } from '@ant-design/icons';
@@ -153,7 +153,7 @@ const RegistrationForm = (props) => {
                 ]}
             >
                 <Checkbox>
-                I have read the <a href="">agreement</a>
+                I have read the <a href="www.google.com">agreement</a>
                 </Checkbox>
             </Form.Item>
             
