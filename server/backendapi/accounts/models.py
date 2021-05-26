@@ -12,17 +12,17 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
         Token.objects.create(user=instance)
 
 class Patient(models.Model):
-    f_name = models.CharField(max_length=20)
-    m_name = models.CharField(max_length=20, blank=True)
-    l_name = models.CharField(max_length=20)
-    GenderType = models.TextChoices('GenderType', 'Male Female Trans Other')
-    gender = models.CharField(choices=GenderType.choices, max_length=10)
+    username = models.CharField(max_length=20)
+    email = models.CharField(max_length=30)
+    password = models.CharField(max_length=30)
+    name = models.CharField(max_length=20)
     age = models.IntegerField
-    address = models.TextField(blank=True)
-    phone = models.CharField(max_length=10)
+    residence = models.TextField(blank=True)
+    GenderType = models.TextChoices('GenderType', 'Male Female  Other')
+    gender = models.CharField(choices=GenderType.choices, max_length=10)
 
     def __str__(self):
-        return self.f_name
+        return self.username
 
 
 class Report(models.Model):

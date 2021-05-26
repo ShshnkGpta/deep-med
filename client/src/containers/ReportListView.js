@@ -1,6 +1,9 @@
 import React from 'react';
-import Reports from '../components/Report';
 import axios from 'axios';
+
+
+import Reports from '../components/Report';
+import CustomForm from '../components/form';
 
 
 class ReportList extends React.Component {
@@ -19,7 +22,16 @@ class ReportList extends React.Component {
 
     render() {
         return (
-            <Reports data={this.state.reports}/>
+            <div>
+                <Reports data={this.state.reports}/>
+                <br />
+                <h2>Start new diagnosis</h2>
+                <CustomForm
+                    requestType="post"
+                    reportID={null}
+                    buttonText="Submit"
+                />
+            </div>
         );
     }
 }
