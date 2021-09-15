@@ -2,44 +2,53 @@ import React from 'react';
 import axios from 'axios';
 import { connect } from "react-redux";
 import { Button, Card } from 'antd';
-import CustomForm from '../components/form';
+import CustomForm from '../components/Form';
 
 class ReportDetail extends React.Component {
     state = {
         report: {}
     }
 
-    componentDidMount() {
-        const reportID = this.props.match.params.reportID;
-        axios.get(`http://127.0.0.1:8000/api/${reportID}`)
-            .then(res => {
-                this.setState({
-                    report: res.data
+    UNSAFE_componentWillReceiveProps(newProps) {
+        if (newProps.token) {
+            axios.defaults.headers = {
+                "Content-Type": "application/json",
+                Authorization: newProps.token
+            }
+            const reportID = this.props.match.params.reportID;
+            axios.get(`http://127.0.0.1:8000/api/${reportID}/`)
+                .then(res => {
+                    this.setState({
+                        report: res.data
+                    });
+                    console.log(this.state.report)
                 });
-            });
+        } 
     }
 
-    handleDelete = event => {
-        event.preventDefault();
-        const reportID = this.props.match.params.reportID;
-        axios.defaults.headers = {
-            "Content-Type": "application/json",
-            Authorization: `Token ${this.props.token}`
-        };
-        axios.delete(`http://127.0.0.1:8000/api/${reportID}/delete/`)
-        .then(res => {
-            if (res.status === 204) {
-                this.props.history.push('/');
+    handleDelete = () => {
+        if (this.props.token !== null) {
+            const reportID = this.props.match.params.reportID;
+            axios.defaults.headers = {
+                "Content-Type": "application/json",
+                Authorization: this.props.token
             }
-        })
+            axios.delete(`http://127.0.0.1:8000/api/${reportID}/delete/`);
+            this.props.history.push(`/`);
+            this.forceUpdate();
+        } else {
+            //show error
+        }
     };
 
     render() {
         return (
             <div>
                 <Card title={this.state.report.title}>
-                    <p>{this.state.report.content}</p>
+                    Symptoms:<p> {this.state.report.desc} </p>
+                    Generated result:<p> {this.state.report.result} </p>
                 </Card>
+                <br /><br /><br />
                 <CustomForm
                     {...this.props}
                     token={this.props.token}
@@ -60,5 +69,6 @@ const mapStateToProps = state => {
         token: state.token
     };
 };
+
 
 export default connect(mapStateToProps)(ReportDetail);

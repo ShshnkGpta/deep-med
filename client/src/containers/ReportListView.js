@@ -1,60 +1,30 @@
 import React from 'react';
 import axios from 'axios';
 import Reports from '../components/Report';
-import CustomForm from '../components/form';
-
+import CustomForm from '../components/Form';
+import { connect } from "react-redux";
 
 class ReportList extends React.Component {
     state = {
         reports: []
     }
-    
-    fetchReports = () => {
-        axios.get("http://127.0.0.1:8000/api/", 
-            {headers: {
-                "Content-Type": "text/plain",
-                'key': '4eb16374a2d97290b126cd0471bf3e96a862ccce', 
-            }})
-        .then(res => {
-            this.setState({
-                reports: res.data
-            });
-        });
-    }
-    
-    componentDidMount() {
-        this.fetchReports();
-    }
-    
-    componentWillReceiveProps(newProps) {
+        
+    UNSAFE_componentWillReceiveProps(newProps) {
         if (newProps.token) {
-            this.fetchReports();      
-        }
+            axios.defaults.headers = {
+                "Content-Type": "application/json",
+                Authorization: newProps.token
+            }
+            axios.get('http://127.0.0.1:8000/api/')
+                .then(res => {
+                    this.setState({
+                        reports: res.data
+                    });
+                    console.log(this.state.reports);
+                })
+        } 
     }
     
-    /*
-    componentDidMount() {
-        var data = '';
-
-        var config = {
-            method: 'get',
-            url: 'http://127.0.0.1:8000/api/',
-            headers: {
-                "Content-Type": "application/json",
-                'key': '4eb16374a2d97290b126cd0471bf3e96a862ccce', 
-            },
-            data : data
-        };
-
-        axios(config)
-        .then(function (response) {
-            console.log(JSON.stringify(response.data));
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-    }
-    */
     render() {
         return (
             <div>
@@ -71,4 +41,11 @@ class ReportList extends React.Component {
     }
 }
 
-export default ReportList;
+
+const mapStateToProps = state => {
+    return {
+        token: state.token
+    }
+}
+
+export default connect(mapStateToProps)(ReportList);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Button, Spin } from 'antd';
+import { Form, Input, Checkbox, Button, Spin } from 'antd';
 import { connect } from 'react-redux';
 import { UserOutlined, LockOutlined, LoadingOutlined } from '@ant-design/icons';
 import { NavLink } from 'react-router-dom';
@@ -33,12 +33,12 @@ const NormalLoginForm = (props) => {
                 :
 
                 <Form
-                name="normal_login"
-                className="login-form"
-                initialValues={{
-                    remember: true,
-                }}
-                onFinish={onFinish}
+                    name="normal_login"
+                    className="login-form"
+                    initialValues={{
+                        remember: true,
+                    }}
+                    onFinish={onFinish}
                 >
                     <Form.Item
                         name="username"
@@ -66,6 +66,10 @@ const NormalLoginForm = (props) => {
                         type="password"
                         placeholder="Password"
                         />
+                    </Form.Item>
+
+                    <Form.Item name="remember" valuePropName="checked" noStyle>
+                        <Checkbox>Remember me</Checkbox>
                     </Form.Item>
 
                     <Form.Item>

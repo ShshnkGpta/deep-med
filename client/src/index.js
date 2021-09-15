@@ -18,14 +18,7 @@ const app = (
     <App />
   </Provider>
 )
-/*
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
-*/
+
 ReactDOM.render(app, document.getElementById('root'));
 reportWebVitals();
 

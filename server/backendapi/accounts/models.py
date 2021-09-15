@@ -26,13 +26,13 @@ class Patient(models.Model):
 
 
 class Report(models.Model):
-    patient = models.ForeignKey("Patient", on_delete=models.CASCADE)
+    #patient = models.ForeignKey("Patient", on_delete=models.CASCADE)
     title = models.CharField(max_length=20)
     desc = models.TextField(blank=True)
     result = models.CharField(max_length=20)
 
     def __str__(self):
-        return self.title
+        return self.id
     
     
 

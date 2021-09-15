@@ -1,17 +1,8 @@
 import React from 'react';
-import { List, Avatar, Space } from 'antd';
-import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
-
-
-const IconText = ({ icon, text }) => (
-  <Space>
-    {React.createElement(icon)}
-    {text}
-  </Space>
-);
+import { List } from 'antd';
 
 const Reports = (props) => {
-  return(
+  return (
     <List
       itemLayout="vertical"
       size="large"
@@ -24,25 +15,19 @@ const Reports = (props) => {
       dataSource={props.data}
       renderItem={item => (
         <List.Item
-          key={item.title}
-          actions={[
-            <IconText icon={StarOutlined} text="156" key="list-vertical-star-o" />,
-            <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
-            <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
-          ]}
+          key={item.id}
           extra={
             <img
               width={272}
               alt="logo"
-              src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+              src="https://www.deepmed.io/wp-content/uploads/2019/05/logo-small-e1557422772468.png"
             />
           }
         >
           <List.Item.Meta
-            avatar={<Avatar src={item.avatar} />}
-            title={<a href={`/${item.id}`}>{item.title}</a>}
+            avatar={item.result}
+            title={<a href={`/reports/${item.id}`}> {item.title} </a>}
             description={item.desc}
-            result={item.result}
           />
           {item.content}
         </List.Item>
